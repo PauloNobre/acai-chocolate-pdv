@@ -11,6 +11,20 @@ html, body {
 	min-height: 100%
 }
 
+.body-background{
+  	width: 100%;
+  	height: auto;
+  	padding: 10%;
+  	text-align: center;
+  	color: white;
+  	background: url(/images/Logotipo_Nutre_Acai_neg.jpg) no-repeat center scroll;
+  	background-color: black;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	background-size: cover;
+  	-o-background-size: cover;
+}
+
 .layout-boxed html, .layout-boxed body {
 	height: 100%
 }
@@ -3611,15 +3625,15 @@ table.text-center, table.text-center td, table.text-center th {
 }
 
 .login-box-body, .register-box-body {
-	background: #fff;
+	background: #605ca8;
 	padding: 20px;
 	border-top: 0;
-	color: #666
+	color: #fff
 }
 
 .login-box-body .form-control-feedback, .register-box-body .form-control-feedback
 	{
-	color: #777
+	color: #605ca8
 }
 
 .login-box-msg, .register-box-msg {

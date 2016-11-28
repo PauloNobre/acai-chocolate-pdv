@@ -13,35 +13,35 @@
 	<link rel="stylesheet" th:href="@{/css/lte/adminLTE.min.css}"/>
 	<link rel="stylesheet" th:href="@{/css/iCheck/purple.css}"/>
 	<link type="text/css" rel="stylesheet" th:href="@{https://translate.googleapis.com/translate_static/css/translateelement.css}"/>
+	
 </head>
 
 <body class="hold-transition login-page">
-	<div class="login-box">
-		<div class="login-logo">
-	    	<b>Admin</b>LTE
-	  	</div>
-	  	
-	  	<div class="login-box-body">
-	    	<p class="login-box-msg">Sign in to start your session</p>
-	
-	    	<form th:action="@{/login}" method="post">
-	      		<div class="form-group has-feedback">
-	        		<input type="text" name="username" class="form-control" placeholder="Email"/>
-	        		<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-	      		</div>
-	      		<div class="form-group has-feedback">
-	        		<input type="password" name="password" class="form-control" placeholder="Password"/>
-	        		<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-	      		</div>
-	      		<div class="row">
-	        		<div class="col-xs-offset-8 col-xs-4">
-	          			<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-	        		</div>
-	        	</div>
-	    	</form>
+	<div class="body-background">
+		<div class="login-box">
+		  	
+		  	<div class="login-box-body">
+		    	<p class="login-box-msg">Logar</p>
+		
+		    	<form th:action="@{/login}" method="post">
+		      		<div class="form-group has-feedback">
+		        		<input type="text" name="username" class="form-control" placeholder="Email"/>
+		        		<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+		      		</div>
+		      		<div class="form-group has-feedback">
+		        		<input type="password" name="password" class="form-control" placeholder="Password"/>
+		        		<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+		      		</div>
+		      		<div class="row">
+		        		<div class="col-xs-offset-8 col-xs-4">
+		          			<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+		        		</div>
+		        	</div>
+		    	</form>
+			</div>
 		</div>
 	</div>
-	
+		
 	<script type="text/javascript" th:src="@{/js/plugins/jquery/jquery-3.1.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/plugins/bootstrap/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
