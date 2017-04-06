@@ -11,4 +11,9 @@ public class PagesController {
 	public ModelAndView login() {
 		return new ModelAndView("/login");
 	}
+	
+	@GetMapping("/")
+	public ModelAndView home() {
+		return new ModelAndView("/home");
+	}
 }

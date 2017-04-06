@@ -15,6 +15,9 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotNull
+	private int codigo;
+	
 	@NotEmpty
 	private String nome;
 	
@@ -25,9 +28,10 @@ public class Produto {
 		super();
 	}
 
-	public Produto(Integer id, String nome, double valor) {
+	public Produto(Integer id, int codigo, String nome, double valor) {
 		super();
 		this.id = id;
+		this.codigo = codigo;
 		this.nome = nome;
 		this.valor = valor;
 	}
@@ -38,6 +42,14 @@ public class Produto {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getNome() {

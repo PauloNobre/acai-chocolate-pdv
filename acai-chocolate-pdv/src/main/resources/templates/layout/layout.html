@@ -25,8 +25,8 @@
 
 	<header class="main-header" th:fragment="header">
 		<a th:href="@{/}" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
-			<span class="logo-mini"><b>GPA</b></span> <!-- logo for regular state and mobile devices -->
-			<span class="logo-lg"><b>GPA</b> Extensão</span>
+			<span class="logo-mini"><b>Açai</b></span> <!-- logo for regular state and mobile devices -->
+			<span class="logo-lg"><b>Açai</b> com Chocolate pdv</span>
 		</a>
 		<!-- Header Navbar: style can be found in header.less -->
 		<nav class="navbar navbar-static-top">
@@ -52,10 +52,12 @@
 	<aside class="main-sidebar" th:fragment="menu">
 		<section class="sidebar">	
 			<ul class="sidebar-menu">
+				<li class=""><a th:href="@{/venda/nova}"> <i class="fa fa-shopping-cart"></i>
+					<span>Nova Venda</span></a>
+				</li>
 				<li class=""><a th:href="@{/produto/listar}"> <i class="fa fa-plus"></i>
-					<span>Produtos</span></a></li>
-				<li class=""><a th:href="@{/}"> <i class="fa fa-folder-o"></i> <span>Minhas Ações</span>
-			</a></li>
+					<span>Produtos</span></a>
+				</li>
 			</ul>
 		</section>
 	</aside>

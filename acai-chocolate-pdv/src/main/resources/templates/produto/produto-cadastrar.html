@@ -23,7 +23,11 @@
 					
 					<div class="box-body">
 						<form th:action="@{/produto/novo}" method="post" th:object="${produto}">
-							<div class="form-group col-md-10">
+							<div class="form-group col-md-2">
+								<label for="codigo" class="control-label">Código</label>
+								<input id="codigo" type="number" class="form-control" th:field="*{codigo}" required="required"/>
+							</div>
+							<div class="form-group col-md-8">
 								<label for="nome" class="control-label">Nome</label>
 								<input id="nome" type="text" class="form-control" th:field="*{nome}" required="required"/>
 							</div>

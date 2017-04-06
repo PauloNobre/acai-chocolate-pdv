@@ -3,7 +3,7 @@ package ufc.quixada.model;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Papel implements GrantedAuthority{
-	ATENDENTE("Atendente"), GERENTE("Gerente");
+	FUNCIONARIO("Funcionário"), GERENTE("Gerente");
 
 	private String descricao;
 
