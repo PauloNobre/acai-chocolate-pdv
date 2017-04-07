@@ -10,6 +10,8 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
 <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}"></link>
 <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css}"></link>
@@ -35,12 +37,6 @@
 				role="button"> <span class="sr-only">Toggle navigation</span></a>
 			<div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
-					<!-- User Account: style can be found in dropdown.less -->
-					<li class="dropdown user user-menu"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown"> <span
-							class="glyphicon glyphicon-user"></span> <span class="hidden-xs"
-							th:text="${pessoaLogada}"></span>
-					</a></li>
 					<!-- Control Sidebar Toggle Button -->
 					<li><a th:href="@{/logout}" title="Sair"><i
 							class="glyphicon glyphicon-log-out"></i></a></li>

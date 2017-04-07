@@ -1,21 +1,23 @@
 package ufc.quixada.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -36,17 +38,19 @@ public class Venda implements Serializable{
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date data;
+	
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
+	private int comanda;
+	
+	@Column(precision=10, scale=2)
+	private double totalPagar;
+	
+	private double desconto;
 
 	public Venda() {
 		super();
-	}
-
-	public Venda(Integer id, List<ItemVenda> produtos, Funcionario funcionario, Date data) {
-		super();
-		this.id = id;
-		this.produtos = produtos;
-		this.funcionario = funcionario;
-		this.data = data;
 	}
 
 	public Integer getId() {
@@ -64,6 +68,13 @@ public class Venda implements Serializable{
 	public void setProdutos(List<ItemVenda> produtos) {
 		this.produtos = produtos;
 	}
+	
+	public void addProduto(ItemVenda itemVenda) {
+		if(this.produtos == null) {
+			this.produtos = new ArrayList<ItemVenda>();
+		}
+		this.produtos.add(itemVenda);
+	}
 
 	public Funcionario getFuncionario() {
 		return funcionario;
@@ -80,4 +91,37 @@ public class Venda implements Serializable{
 	public void setData(Date data) {
 		this.data = data;
 	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public int getComanda() {
+		return comanda;
+	}
+
+	public void setComanda(int comanda) {
+		this.comanda = comanda;
+	}
+
+	public double getTotalPagar() {
+		return totalPagar;
+	}
+
+	public void setTotalPagar(double totalPagar) {
+		this.totalPagar = totalPagar;
+	}
+
+	public double getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(double desconto) {
+		this.desconto = desconto;
+	}
+	
 }

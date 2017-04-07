@@ -10,7 +10,38 @@
 
 <body>
 	<section layout:fragment="conteudo">
-		<img th:src="@{images/logo-acai.jpg}" class="img-responsive center-block"></img>
+		<section class="content">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="small-box bg-green">
+						<div class="inner">
+							<h3>Nova</h3>
+							<p></p>
+						</div>
+						<div class="icon">
+							<i class="fa fa-shopping-cart"></i>
+						</div>
+						<a class="small-box-footer" href="/venda/nova">
+							<i class="fa fa-arrow-circle-right"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-3" th:each="venda : ${vendas}">
+					<div class="small-box bg-aqua">
+						<div class="inner">
+							<h3 th:text="${venda.comanda}"></h3>
+							<p th:text="|R$ ${venda.totalPagar}|"></p>
+						</div>
+						<div class="icon">
+							<i class="fa fa-shopping-cart"></i>
+						</div>
+						<a class="small-box-footer" th:href="|/venda/${venda.id}|">
+							<i class="fa fa-arrow-circle-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
 	</section>
 </body>
 </html>

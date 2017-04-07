@@ -6,4 +6,5 @@ import ufc.quixada.model.Produto;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 
+	public Produto findByCodigo(int codigo);
 }

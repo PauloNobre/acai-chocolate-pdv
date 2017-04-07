@@ -1,11 +1,15 @@
 package ufc.quixada.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ufc.quixada.model.Produto;
@@ -34,5 +38,20 @@ public class ProdutosController {
 	public ModelAndView adicionar(@ModelAttribute Produto produto) {
 		produtoRepository.save(produto);
 		return listar();
+	}
+	
+	@PostMapping("/buscar")
+	public @ResponseBody Map<String, Object> buscarProduto(@ModelAttribute("codigo") int codigo) {
+		
+		Produto produto = produtoRepository.findByCodigo(codigo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(produto != null) {
+			map.put("produto", produto);
+			return map;
+		}
+		
+		map.put("Erro", "Produto Não Encontrado");
+		return map;
 	}
 }

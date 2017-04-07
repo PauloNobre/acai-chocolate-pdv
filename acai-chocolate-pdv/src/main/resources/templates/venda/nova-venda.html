@@ -18,71 +18,84 @@
 			<div class="card">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">Nova Venda</h3>
+						<h1 class="text-center">Açai com Chocolate</h1>
 					</div>
 					
+					<input id="id-venda" type="number" hidden="hidden" th:value="${venda.id}"/>
+					
 					<div class="box-body">
-						<form  class="col-md-6" action="@{/venda/nova}" method="post" th:object="${itemVenda}">
+						<form  id="form-item-venda" class="col-md-6" method="post">
 							<div class="form-group col-md-12">
 								<label for="produto" class="control-label">Produto:</label>
-								<input id="produto" class="form-control" th:field="*{produto}" type="text" required="required" disabled="disabled"/>
+								<input id="produto" class="form-control" type="text" disabled="disabled"/>
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-4">
 								<label for="codigo" class="control-label">Código:</label>
-								<input id="codigo" class="form-control" type="number" required="required"/>
+								<input id="codigo" class="form-control" type="number"/>
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-4">
 								<label for="quantidade" class="control-label">Quantidade:</label>
-								<input id="quantidade" class="form-control" th:field="*{quantidade}" type="number" required="required"/>
+								<input id="quantidade" value="1" step="0.001" class="form-control" type="number"/>
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-4">
 								<label for="valor-produto" class="control-label">Valor Unit.:</label>
-								<input id="valor-produto" class="form-control" type="number" required="required" disabled="disabled"/>
+								<input id="valor-produto" class="form-control" type="text" disabled="disabled"/>
 							</div>
 							<div class="form-group text-right">
-								<button class="btn  btn-primary" type="submit">adicionar</button>
+								<button id="btn-adicionar" class="btn  btn-primary" disabled="disabled" type="button">adicionar</button>
 							</div>
 						</form>
 						
-						<div class="col-md-6">
-							<table class="table table-striped table-bordered">
-								<thead>
-									<tr>
-										<th>Item</th>
-										<th>Código</th>
-										<th>Produto</th>
-										<th>Qtde</th>
-										<th>Valor unit.</th>
-										<th>Valor Total</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>01</td>
-										<td>001</td>
-										<td>Açai</td>
-										<td>2,000</td>
-										<td>3,14</td>
-										<td>6,28</td>
-									</tr>
-									<tr>
-										<td colspan="5">Total Venda</td>
-										<td>134,45</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+						<div id="div-table-itens"></div>
 					</div>
 					
 					<div class="box-footer">
+							<div class="form-group col-md-1">
+								<label for="comanda" class="control-label">Comanda:</label>
+								<input id="comanda" value="0"  class="form-control" type="number"/>
+							</div>
 						<div class="form-group text-center">
-							<button class="btn btn-success">Concluir compra</button>
-							<button class="btn  btn-primary">Finalizar compra</button>
+							<button id="btn-concluir" class="btn btn-success">Concluir compra</button>
+							<button id="btn-finalizar" data-toggle="modal" data-target="#modal-finalizar"
+								class="btn  btn-primary">Finalizar compra</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+		
+		<div id="modal-finalizar" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-sm" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Pagamento</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="form-group">
+		      		<label for="total-modal" class="control-label">Total:</label>
+		      		<input id="total-modal" class="form-control" type="number" disabled="disabled" />
+		      	</div>
+		      	<div class="form-group">
+		      		<label for="desconto-modal" class="control-label">Desconto:</label>
+		      		<input id="desconto-modal" class="form-control" type="number" />
+		      	</div>
+		      	<div class="form-group">
+		      		<label for="total-pagar-modal" class="control-label">Total a Pagar:</label>
+		      		<input id="total-pagar-modal" class="form-control" type="number" disabled="disabled" />
+		      	</div>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-primary">Finalizar</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/js/vendas.js}"></script>
+	</th:block>
 </body>
 </html>

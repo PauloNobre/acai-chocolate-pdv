@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+<meta charset="utf-8"/>
+</head>
+
+<body>
+    <div th:fragment="itens-venda-list" class="col-md-6">
+		<table id="tabela-itens" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Código</th>
+					<th>Produto</th>
+					<th>Qtde</th>
+					<th>Valor unit.</th>
+					<th>Valor Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item, count : ${itens}" th:id="${item.id}">
+					<td th:text="${count.count}"></td>
+					<td th:text="${item.produto.codigo}"></td>
+					<td th:text="${item.produto.nome}"></td>
+					<td th:text="${#numbers.formatDecimal(item.quantidade, 0, 'DEFAULT', 3, 'DEFAULT')}"></td>
+					<td th:text="${#numbers.formatDecimal(item.produto.valor, 0, 'DEFAULT', 2, 'DEFAULT')}"></td>
+					<td th:text="${#numbers.formatDecimal(item.valor, 0, 'DEFAULT', 2, 'DEFAULT')}"></td>
+				</tr>
+				
+				<tr>
+					<td colspan="5">Total Venda</td>
+					<td th:text="${#numbers.formatDecimal(total, 0, 'DEFAULT', 2, 'DEFAULT')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

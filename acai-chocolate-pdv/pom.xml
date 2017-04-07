@@ -6,7 +6,7 @@
 	<groupId>ufc.quixada</groupId>
 	<artifactId>acai-pdv</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>acai-chocolate-pdv</name>
 	<description>Projeto para avaliar estabelecimentos</description>
