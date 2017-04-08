@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -44,7 +43,8 @@ public class Venda implements Serializable{
 	
 	private int comanda;
 	
-	@Column(precision=10, scale=2)
+	private double total;
+	
 	private double totalPagar;
 	
 	private double desconto;
@@ -74,6 +74,10 @@ public class Venda implements Serializable{
 			this.produtos = new ArrayList<ItemVenda>();
 		}
 		this.produtos.add(itemVenda);
+	}
+	
+	public void removeProduto(ItemVenda itemVenda) {
+		this.produtos.remove(itemVenda);
 	}
 
 	public Funcionario getFuncionario() {
@@ -108,6 +112,14 @@ public class Venda implements Serializable{
 		this.comanda = comanda;
 	}
 
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
 	public double getTotalPagar() {
 		return totalPagar;
 	}
@@ -124,4 +136,11 @@ public class Venda implements Serializable{
 		this.desconto = desconto;
 	}
 	
+	public void calcularTotal() {
+		double total = 0;
+		for(ItemVenda item : this.produtos) {
+			total += item.getValor();
+		}
+		this.total = total;
+	}
 }

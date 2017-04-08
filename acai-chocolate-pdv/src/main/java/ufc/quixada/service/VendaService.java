@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ufc.quixada.model.Funcionario;
-import ufc.quixada.model.ItemVenda;
 import ufc.quixada.model.Status;
 import ufc.quixada.model.Venda;
 import ufc.quixada.repository.VendaRepository;
@@ -37,26 +36,18 @@ public class VendaService {
 	public void concluirVenda(Venda venda, int comanda) {
 		venda.setComanda(comanda);
 		venda.setStatus(Status.ANDAMENTO);
-		venda.setTotalPagar(calcularTotal(venda.getProdutos()));
+		venda.calcularTotal();
 		
 		vendaRepository.save(venda);
 	}
 	
 	public void finalizarVenda(Venda venda, double desconto) {
-		double total = calcularTotal(venda.getProdutos());
+		venda.calcularTotal();
 		
 		venda.setDesconto(desconto);
-		venda.setTotalPagar(total - desconto);
+		venda.setTotalPagar(venda.getTotal() - desconto);
 		venda.setStatus(Status.FINALIZADA);
 		
 		vendaRepository.save(venda);
-	}
-	
-	public double calcularTotal(List<ItemVenda> itens) {
-		double total = 0;
-		for(ItemVenda item : itens) {
-			total += item.getValor();
-		}
-		return total;
 	}
 }

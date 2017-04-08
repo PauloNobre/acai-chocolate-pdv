@@ -15,8 +15,8 @@
 				<div class="col-md-3">
 					<div class="small-box bg-green">
 						<div class="inner">
-							<h3>Nova</h3>
-							<p></p>
+							<h3>Venda</h3>
+							<p>Nova</p>
 						</div>
 						<div class="icon">
 							<i class="fa fa-shopping-cart"></i>
@@ -26,11 +26,25 @@
 						</a>
 					</div>
 				</div>
+				<div class="col-md-3">
+					<div class="small-box bg-red">
+						<div class="inner">
+							<h3>Despesa</h3>
+							<p>Nova</p>
+						</div>
+						<div class="icon">
+							<i class="fa fa-money"></i>
+						</div>
+						<a class="small-box-footer" href="/despesa/nova">
+							<i class="fa fa-arrow-circle-right"></i>
+						</a>
+					</div>
+				</div>
 				<div class="col-md-3" th:each="venda : ${vendas}">
 					<div class="small-box bg-aqua">
 						<div class="inner">
 							<h3 th:text="${venda.comanda}"></h3>
-							<p th:text="|R$ ${venda.totalPagar}|"></p>
+							<p th:text="|R$ ${#numbers.formatDecimal(venda.total, 0, 'COMMA', 2, 'COMMA')}|"></p>
 						</div>
 						<div class="icon">
 							<i class="fa fa-shopping-cart"></i>

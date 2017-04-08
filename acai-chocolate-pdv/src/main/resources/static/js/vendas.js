@@ -93,7 +93,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type:"post",
-			data:{	comanda: comanda},
+			data:{comanda: comanda},
 			url: url,
 			beforeSend: function(request){request.setRequestHeader(header, token)},
 			dataType: "json",
@@ -103,8 +103,43 @@ $(document).ready(function() {
 		});
 	})
 	
-	//Finalizar compra
+	//ir para pagamento
+	$("#btn-finalizar").click(function() {
+		var valor = $("#valor-venda").val();
+		valor =  Number(valor.replace(/[^0-9\.]+/g,""));
+		$("#total-modal").val(valor.toFixed(2));
+		
+		$("#desconto-modal").val(0);
+		$("#total-pagar-modal").val(valor.toFixed(2));
+	});
 	
+	//Altera valor total a pagar
+	$("#desconto-modal").change(function() {
+		var total = $("#total-modal").val();
+		var desconto = $("#desconto-modal").val();
+		total = Number(total.replace(/[^0-9\.]+/g,""));
+		desconto = Number(desconto.replace(/[^0-9\.]+/g,""));
+		
+		totalPagar = total - desconto;
+		$("#total-pagar-modal").val(totalPagar.toFixed(2));
+	});
+	
+	//Finalizar compra
+	$("#btn-confirm-modal").click(function() {
+		var url = "/venda/finalizar/" + idVenda;
+		var desconto = $("#desconto-modal").val();
+		
+		$.ajax({
+			type:"post",
+			data:{desconto: desconto},
+			url: url,
+			beforeSend: function(request){request.setRequestHeader(header, token)},
+			dataType: "json",
+			success: function(data){
+				 window.location.href = data.url;
+			}
+		});
+	});
 	
 	//Comando Ctrl + space para pesagem
 //	var pressedCtrl = false;
@@ -121,4 +156,39 @@ $(document).ready(function() {
 //			alert('O comando Crtl+Enter foi acionado')
 //		 } 
 //	});
+	
+	//Comando Ctrl + E para excluir item
+	var pressedCtrl = false;
+	 $(document).keyup(function(e) {
+	 	if(e.which == 17){
+	 		pressedCtrl = false;
+	 	};
+	 });
+	$(document).keydown(function(e) { 
+		if(e.which == 17) {
+			pressedCtrl = true;
+		};
+		if((e.which == 49|| e.keyCode == 49) && pressedCtrl) {
+			$("#modal-deletar-item").modal("toggle");
+		 } 
+	});
+	
+	$("#btn-delete-item").click(function() {
+		$("#modal-deletar-item").modal("toggle");
+		var indice = $("#numero-item").val();
+		var url = "/venda/deletar-item/" + idVenda;
+		
+		if(indice) {
+			$.ajax({
+				type:"post",
+				data:{indice: indice},
+				url: url,
+				beforeSend: function(request){request.setRequestHeader(header, token)},
+				dataType: "json",
+				success: function(data){
+					 window.location.href = data.url;
+				}
+			});
+		}
+	});
 });

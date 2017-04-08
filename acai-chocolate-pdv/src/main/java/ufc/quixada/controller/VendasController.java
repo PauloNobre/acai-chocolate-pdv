@@ -38,14 +38,14 @@ public class VendasController {
 		Funcionario funcionario = (Funcionario) auth.getPrincipal();
 		venda = vendaService.salvarNovaVenda(venda, funcionario);
 		
-		ModelAndView mv = new ModelAndView("/venda/nova-venda");
+		ModelAndView mv = new ModelAndView("/venda/venda");
 		mv.addObject("venda", venda);
 		return mv;
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView editarVenda(@PathVariable("id") Venda venda) {
-		ModelAndView mv = new ModelAndView("/venda/nova-venda");
+		ModelAndView mv = new ModelAndView("/venda/venda");
 		mv.addObject("venda", venda);
 		
 		return mv;
@@ -66,10 +66,10 @@ public class VendasController {
 		ModelAndView mv = new ModelAndView("/venda/table-itens-venda :: itens-venda-list");
 		
 		List<ItemVenda> itens = venda.getProdutos();
-		double total = vendaService.calcularTotal(itens);
+		venda.calcularTotal();
 		
 		mv.addObject("itens", itens);
-		mv.addObject("total", total);
+		mv.addObject("total", venda.getTotal());
 		
 		return mv;
 	}
@@ -81,6 +81,28 @@ public class VendasController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("url", "/");
+		return map;
+	}
+	
+	@PostMapping("/finalizar/{id}")
+	public @ResponseBody Map<String, Object> finalizarVenda(@PathVariable("id") Venda venda,
+			@ModelAttribute("desconto") double desconto){
+		
+		vendaService.finalizarVenda(venda, desconto);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("url", "/");
+		return map;
+	}
+	
+	@PostMapping("/deletar-item/{id}")
+	public @ResponseBody Map<String, Object> deletarItemVenda(@PathVariable("id") Venda venda,
+			@ModelAttribute("indice") int indice){
+		
+		itemVendaService.deletar(venda, indice);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("url", "/venda/" + venda.getId());
 		return map;
 	}
 }
