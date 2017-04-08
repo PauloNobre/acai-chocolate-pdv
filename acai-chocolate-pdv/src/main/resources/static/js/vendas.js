@@ -65,7 +65,7 @@ $(document).ready(function() {
 			beforeSend: function(request){request.setRequestHeader(header, token)},
 			dataType: "json",
 			success: function(data){
-				carregarTabelaItens();
+				window.location.href = data.url;
 			}
 		});
 		
@@ -190,5 +190,20 @@ $(document).ready(function() {
 				}
 			});
 		}
+	});
+	
+	$("#btn-confirmar-cancelar").click(function() {
+		$("#modal-cancelar").modal("toggle");
+		var url = "/venda/cancelar/" + idVenda;
+		
+		$.ajax({
+			type:"post",
+			url: url,
+			beforeSend: function(request){request.setRequestHeader(header, token)},
+			dataType: "json",
+			success: function(data){
+				 window.location.href = data.url;
+			}
+		});
 	});
 });

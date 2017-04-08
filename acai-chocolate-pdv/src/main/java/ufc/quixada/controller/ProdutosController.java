@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,13 @@ public class ProdutosController {
 	@GetMapping("/novo")
 	public ModelAndView formAdicionar(Produto produto) {
 		return new ModelAndView("/produto/produto-cadastrar");
+	}
+	
+	@GetMapping("/editar/{id}")
+	public ModelAndView formEditar(@PathVariable("id") Produto produto) {
+		ModelAndView mv = new ModelAndView("/produto/produto-cadastrar");
+		mv.addObject("produto", produto);
+		return mv;
 	}
 	
 	@PostMapping("/novo")

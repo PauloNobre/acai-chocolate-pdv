@@ -46,19 +46,22 @@ public class VendasController {
 	@GetMapping("/{id}")
 	public ModelAndView editarVenda(@PathVariable("id") Venda venda) {
 		ModelAndView mv = new ModelAndView("/venda/venda");
+		venda.calcularTotal();
 		mv.addObject("venda", venda);
 		
 		return mv;
 	}
 	
 	@PostMapping("/novo-item-venda")
-	public @ResponseBody ItemVenda novoItemVenda(@ModelAttribute("idVenda") Integer idVenda,
+	public @ResponseBody Map<String, Object> novoItemVenda(@ModelAttribute("idVenda") Integer idVenda,
 			@ModelAttribute("codigo") int codigo,
 			@ModelAttribute("quantidade") double quantidade) {
 		
-		ItemVenda itemVenda = itemVendaService.salvaNovo(idVenda, codigo, quantidade);
+		itemVendaService.salvarNovo(idVenda, codigo, quantidade);
 		
-		return itemVenda;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("url", "/venda/" + idVenda);
+		return map;
 	}
 	
 	@GetMapping("/carregar-tabela/{id}")
@@ -66,7 +69,6 @@ public class VendasController {
 		ModelAndView mv = new ModelAndView("/venda/table-itens-venda :: itens-venda-list");
 		
 		List<ItemVenda> itens = venda.getProdutos();
-		venda.calcularTotal();
 		
 		mv.addObject("itens", itens);
 		mv.addObject("total", venda.getTotal());
@@ -103,6 +105,15 @@ public class VendasController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("url", "/venda/" + venda.getId());
+		return map;
+	}
+	
+	@PostMapping("/cancelar/{id}")
+	public @ResponseBody Map<String, Object> cancelarVenda(@PathVariable("id") Venda venda) {
+		vendaService.cancelar(venda);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("url", "/");
 		return map;
 	}
 }

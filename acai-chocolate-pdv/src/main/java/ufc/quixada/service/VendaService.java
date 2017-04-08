@@ -50,4 +50,8 @@ public class VendaService {
 		
 		vendaRepository.save(venda);
 	}
+
+	public void cancelar(Venda venda) {
+		vendaRepository.delete(venda);
+	}
 }

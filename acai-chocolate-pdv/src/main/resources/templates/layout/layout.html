@@ -48,11 +48,30 @@
 	<aside class="main-sidebar" th:fragment="menu">
 		<section class="sidebar">	
 			<ul class="sidebar-menu">
-				<li class=""><a th:href="@{/venda/nova}"> <i class="fa fa-shopping-cart"></i>
+				<li class="header">RECEITAS</li>
+				<li><a th:href="@{/venda/nova}"> <i class="fa fa-shopping-cart"></i>
 					<span>Nova Venda</span></a>
 				</li>
-				<li class=""><a th:href="@{/produto/listar}"> <i class="fa fa-plus"></i>
-					<span>Produtos</span></a>
+				<li><a th:href="@{/despesa/nova}"> <i class="fa fa-money"></i>
+					<span>Nova Despesa</span></a>
+				</li>
+				<li class="header">PRODUTOS</li>
+				<li><a th:href="@{/produto/listar}"> <i class="fa fa-list"></i>
+					<span>Listar Produtos</span></a>
+				</li>
+				<li><a th:href="@{/produto/novo}"> <i class="fa fa-plus"></i>
+					<span>Cadastrar Produto</span></a>
+				</li>
+				<li class="header">FUNCIONÁRIOS</li>
+				<li><a th:href="@{/funcionario/listar}"> <i class="fa fa-users"></i>
+					<span>Listar Funcionários</span></a>
+				</li>
+				<li><a th:href="@{/funcionario/novo}"> <i class="fa fa-user-plus"></i>
+					<span>Cadastrar Funcionário</span></a>
+				</li>
+					<li class="header">RELATÓRIOS</li>
+				<li><a th:href="@{/relatorio/diario}"> <i class="fa fa-bar-chart"></i>
+					<span>Financeiro</span></a>
 				</li>
 			</ul>
 		</section>

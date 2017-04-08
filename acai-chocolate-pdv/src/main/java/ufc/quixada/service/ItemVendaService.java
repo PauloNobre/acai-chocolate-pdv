@@ -23,7 +23,7 @@ public class ItemVendaService {
 	@Autowired
 	private VendaRepository vendaRepository;
 
-	public ItemVenda salvaNovo(Integer idVenda, int codigo, double quantidade) {
+	public void salvarNovo(Integer idVenda, int codigo, double quantidade) {
 		ItemVenda itemVenda = new ItemVenda();
 		
 		itemVenda.setProduto(produtoRepository.findByCodigo(codigo));
@@ -32,10 +32,9 @@ public class ItemVendaService {
 		
 		Venda venda = vendaRepository.findOne(idVenda);
 		venda.addProduto(itemVenda);
+		venda.calcularTotal();
 		
 		vendaRepository.save(venda);
-		
-		return itemVenda;
 	}
 
 	public void deletar(Venda venda, int indice) {
@@ -43,6 +42,7 @@ public class ItemVendaService {
 		ItemVenda item = itens.get(indice - 1);
 		
 		venda.removeProduto(item);
+		venda.calcularTotal();
 		
 		vendaRepository.save(venda);
 		itemVendaRepository.delete(item);
