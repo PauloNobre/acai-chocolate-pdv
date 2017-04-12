@@ -1,5 +1,6 @@
 package ufc.quixada.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,6 @@ import ufc.quixada.model.Venda;
 public interface VendaRepository extends JpaRepository<Venda, Integer> {
 	
 	public List<Venda> findByStatus(Status status);
+
+	public List<Venda> findByDataBetween(Date inicio, Date fim);
 }

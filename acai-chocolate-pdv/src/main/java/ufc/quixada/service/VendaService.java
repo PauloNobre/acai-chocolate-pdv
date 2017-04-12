@@ -25,7 +25,6 @@ public class VendaService {
 			return vendaExistente.get(0);
 		}
 		
-		venda.setData(new Date());
 		venda.setFuncionario(funcionario);
 		venda.setStatus(Status.NOVA);
 		vendaRepository.save(venda);
@@ -43,15 +42,33 @@ public class VendaService {
 	
 	public void finalizarVenda(Venda venda, double desconto) {
 		venda.calcularTotal();
-		
 		venda.setDesconto(desconto);
 		venda.setTotalPagar(venda.getTotal() - desconto);
 		venda.setStatus(Status.FINALIZADA);
+		venda.setData(new Date());
 		
 		vendaRepository.save(venda);
 	}
 
 	public void cancelar(Venda venda) {
 		vendaRepository.delete(venda);
+	}
+
+	@SuppressWarnings("deprecation")
+	public List<Venda> buscarDiaria() {
+		Date inicio = new Date();
+		Date fim = new Date();
+		
+		inicio.setHours(00);
+		inicio.setMinutes(00);
+		inicio.setSeconds(00);
+		
+		fim.setHours(23);
+		fim.setMinutes(59);
+		fim.setSeconds(59);
+		
+		List<Venda> vendas = vendaRepository.findByDataBetween(inicio, fim);
+		
+		return vendas;
 	}
 }

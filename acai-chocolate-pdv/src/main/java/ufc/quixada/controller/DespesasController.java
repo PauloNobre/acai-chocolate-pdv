@@ -12,7 +12,7 @@ import ufc.quixada.service.DespesaService;
 
 @Controller
 @RequestMapping("/despesa")
-public class DespesaController {
+public class DespesasController {
 	
 	@Autowired
 	private DespesaService despesaService;

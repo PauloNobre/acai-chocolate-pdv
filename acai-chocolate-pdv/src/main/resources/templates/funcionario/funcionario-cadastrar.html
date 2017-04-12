@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layout">
+	
+<head>
+	<title>Novo Funcionário</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		<section class="content-header">
+			<h1>Funcionário</h1>
+		</section> <!-- content header -->
+		
+		<section class="content">
+			<div class="card">
+				<div class="box">
+					
+					<div class="box-body">
+						<form th:action="@{/funcionario/novo}" method="post" th:object="${funcionario}">
+							<input hidden="hidden" type="number" th:field="*{id}"/>
+							<div class="form-group col-md-6">
+								<label for="nome" class="control-label">Nome:</label>
+								<input id="nome" type="text" class="form-control" th:field="*{nome}" required="required"/>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="papel" class="control-label">Papel:</label>
+								<select id="papel" class="form-control" th:field="${funcionario.papeis}">
+									<option th:each="papel : ${papeis}" th:text="${papel.descricao}" th:value="${papel}"></option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="senha" class="control-label">Senha:</label>
+								<input id="senha" type="text" class="form-control" th:field="*{senha}" required="required"/>
+							</div>
+							<div class="form-group text-right">
+								<button class="btn  btn-primary	" type="submit">Cadastrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+</body>
+</html>
