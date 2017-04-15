@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layout">
+	
+<head>
+	<title>Financeiro</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		<section class="content-header">
+			<h1>Financeiro</h1>
+		</section> <!-- content header -->
+		<section class="content">
+			<div class="card">
+				<div class="box box-success">
+					<div class="box-header with-border">
+						<h3 class="box-title col-md-8">Vendas x Despesas</h3>
+						<div class="form-group col-md-2">
+            				<div class="input-group">
+                				<input id="dia-relatorio" type="text" class="form-control" />
+                				<span class="input-group-addon">
+                    				<span class="glyphicon glyphicon-calendar"></span>
+                				</span>
+            				</div> <!-- input group -->
+        				</div> <!-- form group -->
+        				<div class="form-group col-md-2">
+            				<button id="visualizar-dia" class="form-control btn btn-primary" type="button">Visualizar</button>
+            			</div> <!-- input group -->
+					</div> <!-- box-header -->
+					<div class="box-body chart-resposive">
+							<div id="div-grafico" class="col-md-6 col-md-offset-3 ">
+								<canvas id="grafico-vendas"></canvas>
+							</div>
+					</div> <!-- box body -->
+				</div> <!-- box success-->
+				
+				<div class="row">
+					<div class="col-md-6">
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">Lista de Vendas</h3>
+							</div> <!-- box header -->
+							<div class="box-body">
+								<div id="table-vendas-fragment"></div> <!-- table vendas fragment -->
+							</div> <!-- box body -->
+						</div> <!-- box -->
+					</div> <!-- col md 6 -->
+					
+					<div class="col-md-6">
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">Lista de Despesas</h3>
+							</div> <!-- box header -->
+							<div class="box-body">
+								<div id="table-despesas-fragment"></div> <!-- table despesas fragment -->
+							</div> <!-- box body -->
+						</div> <!-- box -->
+					</div> <!-- col md 6 -->
+				</div>
+				
+			</div> <!-- card -->
+		</section> <!-- content -->
+	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/js/plugins/chart/chart.min.js}"></script>
+		<script th:src="@{/js/plugins/momentJs/momentjs.min.js}"></script>
+		<script th:src="@{/js/financeiro.js}"></script>
+	</th:block>
+</body>
+</html>

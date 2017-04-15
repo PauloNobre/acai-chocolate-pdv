@@ -1,5 +1,7 @@
 package ufc.quixada.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -55,20 +57,27 @@ public class VendaService {
 	}
 
 	@SuppressWarnings("deprecation")
-	public List<Venda> buscarDiaria() {
-		Date inicio = new Date();
-		Date fim = new Date();
+	public List<Venda> buscarDiaria(String data) {
+		data = data.replace('-', '/');
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		
-		inicio.setHours(00);
-		inicio.setMinutes(00);
-		inicio.setSeconds(00);
-		
-		fim.setHours(23);
-		fim.setMinutes(59);
-		fim.setSeconds(59);
-		
-		List<Venda> vendas = vendaRepository.findByDataBetween(inicio, fim);
-		
-		return vendas;
+		try {
+			Date inicio = new Date(formatter.parse(data).getTime());
+			Date fim = new Date(formatter.parse(data).getTime());
+			
+			inicio.setHours(00);
+			inicio.setMinutes(00);
+			inicio.setSeconds(00);
+			
+			fim.setHours(23);
+			fim.setMinutes(59);
+			fim.setSeconds(59);
+			
+			List<Venda> vendas = vendaRepository.findByDataBetween(inicio, fim);
+			
+			return vendas;
+		} catch (ParseException e) {
+			return null;
+		}
 	}
 }
