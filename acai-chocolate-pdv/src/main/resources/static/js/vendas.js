@@ -21,11 +21,12 @@ $(document).ready(function() {
 				beforeSend: function(request){request.setRequestHeader(header, token)},
 				dataType: "json",
 				success: function(data){
+					console.log(data);
 					if(data.produto) {
+						console.log("Erro!!!!!");
 						preencherCampos(data.produto);
-					} else {
-						console.log("Deu erro");
-						//falta tratar
+					} else{
+						$("#modal-erro-produto").modal("toggle");
 					}
 				}
 			});

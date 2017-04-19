@@ -3625,7 +3625,7 @@ table.text-center, table.text-center td, table.text-center th {
 }
 
 .login-box-body, .register-box-body {
-	background: #605ca8;
+	background: #FFFFFF;
 	padding: 20px;
 	border-top: 0;
 	color: #fff
@@ -3633,10 +3633,12 @@ table.text-center, table.text-center td, table.text-center th {
 
 .login-box-body .form-control-feedback, .register-box-body .form-control-feedback
 	{
-	color: #605ca8
+	color: #555
 }
 
 .login-box-msg, .register-box-msg {
+	color: #555;
+	font-style: inherit;
 	margin: 0;
 	text-align: center;
 	padding: 0 20px 20px 20px

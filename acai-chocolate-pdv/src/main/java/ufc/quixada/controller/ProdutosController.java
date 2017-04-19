@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ufc.quixada.exception.PdvException;
 import ufc.quixada.model.Produto;
 import ufc.quixada.repository.ProdutoRepository;
+import ufc.quixada.service.ProdutoService;
 
 @Controller
 @RequestMapping("/produto")
@@ -22,6 +24,9 @@ public class ProdutosController {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ProdutoService produtoService;
 
 	@GetMapping("/listar")
 	public ModelAndView listar() {
@@ -44,7 +49,15 @@ public class ProdutosController {
 	
 	@PostMapping("/novo")
 	public ModelAndView adicionar(@ModelAttribute Produto produto) {
-		produtoRepository.save(produto);
+		
+		try {
+			produtoService.salvar(produto);
+		} catch (PdvException e) {
+			ModelAndView mv = new ModelAndView("/produto/produto-cadastrar");
+			mv.addObject("produto", produto);
+			mv.addObject("error", e.getMessage());
+			return mv;
+		}
 		return listar();
 	}
 	

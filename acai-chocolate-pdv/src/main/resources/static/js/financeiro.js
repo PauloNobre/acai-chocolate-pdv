@@ -17,6 +17,7 @@ $(document).ready(function() {
 	carregarDados(hoje);
     
     function carregarDados(data) {
+    	$("#titulo-data").text("Estatísticas: " + data);
     	carregarGrafico(data);
     	carregarTableVendas(data);
     	carregarTableDespesas(data);
