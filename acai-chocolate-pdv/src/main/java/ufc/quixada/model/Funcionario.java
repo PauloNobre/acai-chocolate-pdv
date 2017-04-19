@@ -3,6 +3,7 @@ package ufc.quixada.model;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,42 +14,38 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Funcionario implements UserDetails{
+public class Funcionario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty
 	private String nome;
-	
+
 	@NotEmpty
 	private String senha;
-	
+
 	@ElementCollection(targetClass = Papel.class, fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	@CollectionTable(name = "papel_funcionario")
 	@Column(name = "papel")
 	private List<Papel> papeis;
-	
+
+	@OneToMany(mappedBy = "funcionario", targetEntity = Caixa.class, cascade = CascadeType.ALL)
+	private List<Caixa> caixas;
+
 	public Funcionario() {
 		super();
-	}
-
-	public Funcionario(Integer id, String nome, String senha, List<Papel> papeis) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.senha = senha;
-		this.papeis = papeis;
 	}
 
 	public Integer getId() {
@@ -81,6 +78,14 @@ public class Funcionario implements UserDetails{
 
 	public void setPapeis(List<Papel> papeis) {
 		this.papeis = papeis;
+	}
+
+	public List<Caixa> getCaixas() {
+		return caixas;
+	}
+
+	public void setCaixas(List<Caixa> caixas) {
+		this.caixas = caixas;
 	}
 
 	@Override

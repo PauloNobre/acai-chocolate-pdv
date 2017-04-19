@@ -1,14 +1,12 @@
 package ufc.quixada.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ufc.quixada.model.Funcionario;
+import ufc.quixada.model.Caixa;
 import ufc.quixada.model.Status;
 import ufc.quixada.model.Venda;
 import ufc.quixada.repository.VendaRepository;
@@ -19,15 +17,14 @@ public class VendaService {
 	@Autowired
 	private VendaRepository vendaRepository;
 	
-	public Venda salvarNovaVenda(Venda venda, Funcionario funcionario) {
+	public Venda salvarNovaVenda(Venda venda) {
 		
-		List<Venda> vendaExistente = vendaRepository.findByStatus(Status.NOVA);
+		List<Venda> vendaExistente = vendaRepository.findByStatusAndCaixa(Status.NOVA, venda.getCaixa());
 		
 		if(vendaExistente != null && vendaExistente.size() != 0) {
 			return vendaExistente.get(0);
 		}
 		
-		venda.setFuncionario(funcionario);
 		venda.setStatus(Status.NOVA);
 		vendaRepository.save(venda);
 		
@@ -47,7 +44,6 @@ public class VendaService {
 		venda.setDesconto(desconto);
 		venda.setTotalPagar(venda.getTotal() - desconto);
 		venda.setStatus(Status.FINALIZADA);
-		venda.setData(new Date());
 		
 		vendaRepository.save(venda);
 	}
@@ -56,28 +52,16 @@ public class VendaService {
 		vendaRepository.delete(venda);
 	}
 
-	@SuppressWarnings("deprecation")
-	public List<Venda> buscarDiaria(String data) {
-		data = data.replace('-', '/');
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	public List<Venda> buscarFinalizadas(List<Caixa> caixas) {
+		List<Venda> vendas = new ArrayList<Venda>();
 		
-		try {
-			Date inicio = new Date(formatter.parse(data).getTime());
-			Date fim = new Date(formatter.parse(data).getTime());
-			
-			inicio.setHours(00);
-			inicio.setMinutes(00);
-			inicio.setSeconds(00);
-			
-			fim.setHours(23);
-			fim.setMinutes(59);
-			fim.setSeconds(59);
-			
-			List<Venda> vendas = vendaRepository.findByDataBetween(inicio, fim);
-			
-			return vendas;
-		} catch (ParseException e) {
-			return null;
+		for(Caixa caixa : caixas) {
+			for(Venda venda : caixa.getVendas()) {
+				if(venda.getStatus().equals(Status.FINALIZADA)) {
+					vendas.add(venda);
+				}
+			}
 		}
+		return vendas;
 	}
 }
