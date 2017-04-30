@@ -12,5 +12,7 @@ import ufc.quixada.model.Venda;
 @Repository
 public interface VendaRepository extends JpaRepository<Venda, Integer> {
 	
-	public List<Venda> findByStatusAndCaixa(Status status, Caixa caixa);
+	public Venda findByStatusAndCaixa(Status status, Caixa caixa);
+
+	public List<Venda> findByStatus(Status andamento);
 }

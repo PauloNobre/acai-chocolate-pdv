@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layout">
+	
+<head>
+	<title>Encerrar Caixa</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		
+		<section class="content">
+			<div class="card">
+				<div class="box">
+					<div class="box-header">
+						<h1 class="text-center">Encerrar Caixa</h1>
+					</div> <!-- box header -->
+					
+					<div class="box-body">
+						<form th:action="@{|/caixa/encerrar/${caixa.id}|}" method="post" th:object="${caixa}">
+							<div class="form-group col-md-4">
+								<label class="form-label">Abertura:</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-dollar"></i>
+									</span>
+									<input type="number" step="any" class="form-control" th:value="${caixa.abertura}" disabled="disabled"/>
+								</div>
+							</div>
+							
+							<div class="form-group col-md-4">
+								<label class="form-label">Vendas:</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-dollar"></i>
+									</span>
+									<input type="number" step="any" class="form-control" th:value="${caixa.valorVendido}" disabled="disabled"/>
+								</div>
+							</div>
+							
+							<div class="form-group col-md-4">
+								<label class="form-label">Encerramento:</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-dollar"></i>
+									</span>
+									<input type="number" step="any" class="form-control" th:value="${caixa.encerramento}" disabled="disabled"/>
+								</div>
+							</div>
+							
+							<div class="form-group text-right">
+								<button class="btn  btn-primary	" type="submit">Encerrar</button>
+							</div>
+						</form>
+						
+					</div> <!-- box body -->
+				</div> <!-- box -->
+			</div> <!-- card -->
+		</section> <!-- content -->
+	</section>
+</body>
+</html>

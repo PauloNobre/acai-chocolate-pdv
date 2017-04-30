@@ -41,7 +41,7 @@ public class Funcionario implements UserDetails {
 	@Column(name = "papel")
 	private List<Papel> papeis;
 
-	@OneToMany(mappedBy = "funcionario", targetEntity = Caixa.class, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "funcionario", targetEntity = Caixa.class, cascade = CascadeType.PERSIST)
 	private List<Caixa> caixas;
 	
 	private boolean caixaAberto;

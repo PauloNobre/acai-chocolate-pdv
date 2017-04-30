@@ -10,7 +10,7 @@
 
 <body>
 	<section layout:fragment="conteudo">
-		<section class="content" th:if="${vendas}">
+		<section class="content" th:if="${caixa}">
 			<div class="row">
 				<div class="col-md-3">
 					<div class="small-box bg-green">
@@ -21,7 +21,7 @@
 						<div class="icon">
 							<i class="fa fa-shopping-cart"></i>
 						</div>
-						<a class="small-box-footer" href="/venda/nova">
+						<a class="small-box-footer" th:href="@{|/venda/nova/${caixa.id}|}">
 							<i class="fa fa-arrow-circle-right"></i>
 						</a>
 					</div>
@@ -35,7 +35,7 @@
 						<div class="icon">
 							<i class="fa fa-money"></i>
 						</div>
-						<a class="small-box-footer" href="/despesa/nova">
+						<a class="small-box-footer" th:href="@{/despesa/nova}">
 							<i class="fa fa-arrow-circle-right"></i>
 						</a>
 					</div>
@@ -59,7 +59,7 @@
 		
 		<section class="content">
 			<div class="row">
-				<div class="col-md-3" th:if="not ${vendas}">
+				<div class="col-md-3" th:if="not ${caixa}">
 					<div class="small-box bg-green">
 						<div class="inner">
 							<h3>Caixa</h3>
@@ -74,7 +74,7 @@
 					</div>
 				</div>
 				
-				<div class="col-md-3" th:if="${vendas}">
+				<div class="col-md-3" th:if="${caixa}">
 					<div class="small-box bg-red">
 						<div class="inner">
 							<h3>Caixa</h3>
@@ -83,7 +83,7 @@
 						<div class="icon">
 							<i class="fa fa-minus-square"></i>
 						</div>
-						<a class="small-box-footer" href="/caixa/encerrar">
+						<a class="small-box-footer" th:href="@{|/caixa/encerrar/${caixa.id}|}">
 							<i class="fa fa-arrow-circle-right"></i>
 						</a>
 					</div>

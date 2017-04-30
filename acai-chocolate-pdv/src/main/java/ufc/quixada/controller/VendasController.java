@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ufc.quixada.model.Caixa;
+import ufc.quixada.model.Funcionario;
 import ufc.quixada.model.ItemVenda;
 import ufc.quixada.model.Venda;
 import ufc.quixada.service.ItemVendaService;
@@ -29,11 +32,15 @@ public class VendasController {
 	@Autowired
 	private VendaService vendaService;
 	
-	@GetMapping("/nova")
-	public ModelAndView formNova() {
+	@GetMapping("/nova/{id}")
+	public ModelAndView formNova(@PathVariable("id") Caixa caixa) {
+		
+		if(!caixa.isAberto()) {
+			return new ModelAndView("redirect:/");
+		}
 		
 		Venda venda = new Venda();
-		venda = vendaService.salvarNovaVenda(venda);
+		venda = vendaService.salvarNovaVenda(venda, caixa);
 		
 		ModelAndView mv = new ModelAndView("/venda/venda");
 		mv.addObject("venda", venda);
@@ -85,9 +92,9 @@ public class VendasController {
 	
 	@PostMapping("/finalizar/{id}")
 	public @ResponseBody Map<String, Object> finalizarVenda(@PathVariable("id") Venda venda,
-			@ModelAttribute("desconto") double desconto){
+			@ModelAttribute("desconto") double desconto, Authentication auth){
 		
-		vendaService.finalizarVenda(venda, desconto);
+		vendaService.finalizarVenda(venda, desconto, (Funcionario) auth.getPrincipal());
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("url", "/");

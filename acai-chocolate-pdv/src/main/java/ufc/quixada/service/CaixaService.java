@@ -66,8 +66,9 @@ public class CaixaService {
 		funcionarioRepository.save(funcionario);
 	}
 	
-	public void encerrar(Caixa caixa, Funcionario funcionario) {
+	public void encerrar(Caixa caixa) {
 		caixa.setAberto(false);
+		Funcionario funcionario = caixa.getFuncionario();
 		
 		funcionario.setCaixaAberto(false);
 		
@@ -83,7 +84,7 @@ public class CaixaService {
 		}
 		
 		caixa.setValorVendido(valorVendas);
-		caixa.setFechamento(caixa.getAbertura() + valorVendas);
+		caixa.setEncerramento(caixa.getAbertura() + valorVendas);
 		
 		return caixa;
 	}

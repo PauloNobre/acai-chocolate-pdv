@@ -7,25 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ufc.quixada.model.Caixa;
+import ufc.quixada.model.Funcionario;
 import ufc.quixada.model.Status;
 import ufc.quixada.model.Venda;
+import ufc.quixada.repository.CaixaRepository;
 import ufc.quixada.repository.VendaRepository;
 
 @Service
 public class VendaService {
 
 	@Autowired
+	private CaixaRepository caixaRepository;
+	
+	@Autowired
 	private VendaRepository vendaRepository;
 	
-	public Venda salvarNovaVenda(Venda venda) {
+	public Venda salvarNovaVenda(Venda venda, Caixa caixa) {
 		
-		List<Venda> vendaExistente = vendaRepository.findByStatusAndCaixa(Status.NOVA, venda.getCaixa());
+		Venda vendaExistente = vendaRepository.findByStatusAndCaixa(Status.NOVA, caixa);
 		
-		if(vendaExistente != null && vendaExistente.size() != 0) {
-			return vendaExistente.get(0);
+		if(vendaExistente != null) {
+			return vendaExistente;
 		}
 		
 		venda.setStatus(Status.NOVA);
+		venda.setCaixa(caixa);
 		vendaRepository.save(venda);
 		
 		return venda;
@@ -39,11 +45,14 @@ public class VendaService {
 		vendaRepository.save(venda);
 	}
 	
-	public void finalizarVenda(Venda venda, double desconto) {
+	public void finalizarVenda(Venda venda, double desconto, Funcionario funcionario) {
+		Caixa caixa = caixaRepository.findByFuncionarioAndAberto(funcionario, true);
+		
 		venda.calcularTotal();
 		venda.setDesconto(desconto);
 		venda.setTotalPagar(venda.getTotal() - desconto);
 		venda.setStatus(Status.FINALIZADA);
+		venda.setCaixa(caixa);
 		
 		vendaRepository.save(venda);
 	}

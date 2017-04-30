@@ -26,7 +26,7 @@ public class CaixaController {
 	private CaixaService caixaService;
 	
 	@PostMapping("/abrir")
-	public @ResponseBody Map<String, Object> abrir(@RequestParam("idVenda") double abertura, Authentication auth) {
+	public @ResponseBody Map<String, Object> abrir(@RequestParam("abertura") double abertura, Authentication auth) {
 		
 		caixaService.salvar(abertura, (Funcionario) auth.getPrincipal());
 		
@@ -46,9 +46,10 @@ public class CaixaController {
 	}
 	
 	@PostMapping("/encerrar/{id}")
-	public ModelAndView encerrar(@PathVariable("id") Caixa caixa, Authentication auth){
-		caixaService.encerrar(caixa, (Funcionario) auth.getPrincipal());
+	public ModelAndView encerrar(@PathVariable("id") Caixa caixa){
 		
-		return new ModelAndView("/");
+		caixaService.encerrar(caixa);
+		
+		return new ModelAndView("redirect:/");
 	}
 }

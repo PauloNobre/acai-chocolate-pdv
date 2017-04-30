@@ -36,8 +36,9 @@ public class AcaiController {
 		Funcionario funcionario = (Funcionario) auth.getPrincipal();
 		if(funcionario.isCaixaAberto()){
 			Caixa caixaAberto = caixaRepository.findByFuncionarioAndAberto(funcionario, true);
-			List<Venda> vendas = vendaRepository.findByStatusAndCaixa(Status.ANDAMENTO, caixaAberto);
+			List<Venda> vendas = vendaRepository.findByStatus(Status.ANDAMENTO);
 			mv.addObject("vendas", vendas);
+			mv.addObject("caixa", caixaAberto);
 		}
 		
 		return mv;

@@ -25,12 +25,12 @@ public class Caixa implements Serializable{
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="caixa.id")
+	@JoinColumn(name="funcionario.id")
 	private Funcionario funcionario;
 	
 	private double abertura;
 	
-	private double fechamento;
+	private double encerramento;
 	
 	private double valorVendido;
 	
@@ -70,12 +70,12 @@ public class Caixa implements Serializable{
 		this.abertura = abertura;
 	}
 
-	public double getFechamento() {
-		return fechamento;
+	public double getEncerramento() {
+		return encerramento;
 	}
 
-	public void setFechamento(double fechamento) {
-		this.fechamento = fechamento;
+	public void setEncerramento(double encerramento) {
+		this.encerramento = encerramento;
 	}
 
 	public double getValorVendido() {
