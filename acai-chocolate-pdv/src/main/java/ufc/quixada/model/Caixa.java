@@ -32,6 +32,8 @@ public class Caixa implements Serializable{
 	
 	private double fechamento;
 	
+	private double valorVendido;
+	
 	private boolean aberto;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -74,6 +76,14 @@ public class Caixa implements Serializable{
 
 	public void setFechamento(double fechamento) {
 		this.fechamento = fechamento;
+	}
+
+	public double getValorVendido() {
+		return valorVendido;
+	}
+
+	public void setValorVendido(double valorVendido) {
+		this.valorVendido = valorVendido;
 	}
 
 	public boolean isAberto() {

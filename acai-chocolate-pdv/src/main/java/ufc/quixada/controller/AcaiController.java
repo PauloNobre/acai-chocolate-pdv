@@ -33,10 +33,9 @@ public class AcaiController {
 	public ModelAndView home(Authentication auth) {
 		ModelAndView mv = new ModelAndView("/home");
 		
-		Funcionario funcionario = (Funcionario) auth.getCredentials();
-		Caixa caixaAberto = caixaRepository.findByFuncionarioAndAberto(funcionario, true);
-		
-		if(caixaAberto != null) {
+		Funcionario funcionario = (Funcionario) auth.getPrincipal();
+		if(funcionario.isCaixaAberto()){
+			Caixa caixaAberto = caixaRepository.findByFuncionarioAndAberto(funcionario, true);
 			List<Venda> vendas = vendaRepository.findByStatusAndCaixa(Status.ANDAMENTO, caixaAberto);
 			mv.addObject("vendas", vendas);
 		}

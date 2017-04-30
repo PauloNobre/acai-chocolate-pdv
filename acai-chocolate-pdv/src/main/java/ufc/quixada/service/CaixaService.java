@@ -9,13 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ufc.quixada.model.Caixa;
+import ufc.quixada.model.Funcionario;
+import ufc.quixada.model.Venda;
 import ufc.quixada.repository.CaixaRepository;
+import ufc.quixada.repository.FuncionarioRepository;
 
 @Service
 public class CaixaService {
 
 	@Autowired
 	private CaixaRepository caixaRepository;
+	
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
 	
 	public void salvar(Caixa caixa) {
 		
@@ -45,5 +51,40 @@ public class CaixaService {
 		} catch (ParseException e) {
 			return null;
 		}
+	}
+
+	public void salvar(double abertura, Funcionario funcionario) {
+		Caixa caixa = new Caixa();
+		caixa.setAberto(true);
+		caixa.setAbertura(abertura);
+		caixa.setData(new Date());
+		caixa.setFuncionario(funcionario);
+		
+		funcionario.setCaixaAberto(true);
+		
+		caixaRepository.save(caixa);
+		funcionarioRepository.save(funcionario);
+	}
+	
+	public void encerrar(Caixa caixa, Funcionario funcionario) {
+		caixa.setAberto(false);
+		
+		funcionario.setCaixaAberto(false);
+		
+		caixaRepository.save(caixa);
+		funcionarioRepository.save(funcionario);
+	}
+	
+	public Caixa calcularEncerramento(Caixa caixa) {
+		double valorVendas = 0;
+		
+		for (Venda venda : caixa.getVendas()) {
+			valorVendas += venda.getTotalPagar();
+		}
+		
+		caixa.setValorVendido(valorVendas);
+		caixa.setFechamento(caixa.getAbertura() + valorVendas);
+		
+		return caixa;
 	}
 }

@@ -43,6 +43,8 @@ public class Funcionario implements UserDetails {
 
 	@OneToMany(mappedBy = "funcionario", targetEntity = Caixa.class, cascade = CascadeType.ALL)
 	private List<Caixa> caixas;
+	
+	private boolean caixaAberto;
 
 	public Funcionario() {
 		super();
@@ -101,6 +103,14 @@ public class Funcionario implements UserDetails {
 	@Override
 	public String getUsername() {
 		return this.nome;
+	}
+
+	public boolean isCaixaAberto() {
+		return caixaAberto;
+	}
+
+	public void setCaixaAberto(boolean caixaAberto) {
+		this.caixaAberto = caixaAberto;
 	}
 
 	@Override
