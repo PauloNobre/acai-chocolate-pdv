@@ -81,16 +81,58 @@
 		      <div class="modal-body">
 		      	<div class="form-group">
 		      		<label for="total-modal" class="control-label">Total:</label>
-		      		<input id="total-modal" class="form-control" type="text" disabled="disabled" />
+		      		<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-dollar"></i>
+						</span>
+						<input id="total-modal" class="form-control" type="text" disabled="disabled" />
+					</div>
 		      	</div>
 		      	<div class="form-group">
 		      		<label for="desconto-modal" class="control-label">Desconto:</label>
-		      		<input id="desconto-modal" class="form-control" type="number" />
+		      		<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-dollar"></i>
+						</span>
+						<input id="desconto-modal" class="form-control" type="number" />
+					</div>
 		      	</div>
 		      	<div class="form-group">
 		      		<label for="total-pagar-modal" class="control-label">Total a Pagar:</label>
-		      		<input id="total-pagar-modal" class="form-control" type="text" disabled="disabled" />
+		      		<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-dollar"></i>
+						</span>
+						<input id="total-pagar-modal" class="form-control" type="text" disabled="disabled" />
+					</div>
 		      	</div>
+		      	<div class="form-group">
+		      		<label for="forma-pagamento" class="control-label">Forma de Pagamento:</label>
+		      		<select id="forma-pagamento" class="form-control">
+		      			<option selected="selected" value="À Vista">À Vista</option>
+		      			<option value="Cartão">Cartão</option>
+		      		</select>
+		      	</div>
+		      	<div id="dinheiro-troco">
+			      	<div class="form-group">
+			      		<label class="control-label" for="valor-recebido">Dinheiro:</label>
+			      		<div class="input-group">
+							<span class="input-group-addon">
+								<i class="fa fa-dollar"></i>
+							</span>
+							<input id="valor-recebido" type="number" step="any" min="0" class="form-control"/>
+						</div>
+			      	</div>
+			      	<div class="form-group">
+			      		<label class="control-label" for="troco">Troco:</label>
+			      		<div class="input-group">
+							<span class="input-group-addon">
+								<i class="fa fa-dollar"></i>
+							</span>
+							<input id="troco" type="number" step="any" class="form-control" disabled="disabled" />
+						</div>
+			      	</div>
+			  	</div>
 		      </div>
 		      <div class="modal-footer">
 		      	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
