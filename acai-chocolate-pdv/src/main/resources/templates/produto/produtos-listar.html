@@ -33,6 +33,7 @@
 									<th>Código</th>
 									<th>Nome</th>
 									<th>Valor</th>
+									<th>Custo</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -42,6 +43,7 @@
 										<a th:href="|@{/produto/editar/}${produto.id}" th:text="${produto.nome}"></a>
 									</td>
 									<td th:text="|R$ ${#numbers.formatDecimal(produto.valor, 0, 'COMMA', 2, 'COMMA')}|"></td>
+									<td th:text="|R$ ${#numbers.formatDecimal(produto.custo, 0, 'COMMA', 2, 'COMMA')}|"></td>
 								</tr>
 							</tbody>
 						</table>

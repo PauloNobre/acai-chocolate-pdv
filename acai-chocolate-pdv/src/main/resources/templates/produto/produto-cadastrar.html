@@ -31,7 +31,7 @@
 								<label for="codigo" class="control-label">Código:</label>
 								<input id="codigo" type="number" class="form-control" th:field="*{codigo}" required="required"/>
 							</div>
-							<div class="form-group col-md-8">
+							<div class="form-group col-md-6">
 								<label for="nome" class="control-label">Nome:</label>
 								<input id="nome" type="text" class="form-control" th:field="*{nome}" required="required"/>
 							</div>
@@ -42,6 +42,15 @@
 										<i class="fa fa-dollar"></i>
 									</span>
 									<input id="valor" type="number" step="any" min="0" class="form-control" th:field="*{valor}" required="required"/>
+								</div>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="valor" class="control-label">Custo:</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="fa fa-dollar"></i>
+									</span>
+									<input id="custo" type="number" step="any" min="0" class="form-control" th:field="*{custo}" required="required"/>
 								</div>
 							</div>
 							<div class="form-group text-right">
