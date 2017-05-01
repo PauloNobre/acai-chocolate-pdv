@@ -45,6 +45,9 @@ public class Venda implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "caixa.id")
 	private Caixa caixa;
+	
+	@Enumerated
+	private FormaPagamento formaPagamento;
 
 	public Venda() {
 		super();
@@ -123,6 +126,14 @@ public class Venda implements Serializable {
 
 	public void setCaixa(Caixa caixa) {
 		this.caixa = caixa;
+	}
+
+	public FormaPagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
 	}
 
 	public void calcularTotal() {

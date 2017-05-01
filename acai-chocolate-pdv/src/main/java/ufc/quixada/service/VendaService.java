@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ufc.quixada.model.Caixa;
+import ufc.quixada.model.FormaPagamento;
 import ufc.quixada.model.Funcionario;
 import ufc.quixada.model.Status;
 import ufc.quixada.model.Venda;
@@ -45,7 +46,7 @@ public class VendaService {
 		vendaRepository.save(venda);
 	}
 	
-	public void finalizarVenda(Venda venda, double desconto, Funcionario funcionario) {
+	public void finalizarVenda(Venda venda, double desconto, String formaPagamento, Funcionario funcionario) {
 		Caixa caixa = caixaRepository.findByFuncionarioAndAberto(funcionario, true);
 		
 		venda.calcularTotal();
@@ -53,6 +54,7 @@ public class VendaService {
 		venda.setTotalPagar(venda.getTotal() - desconto);
 		venda.setStatus(Status.FINALIZADA);
 		venda.setCaixa(caixa);
+		venda.setFormaPagamento(FormaPagamento.fromDescricao(formaPagamento));
 		
 		vendaRepository.save(venda);
 	}

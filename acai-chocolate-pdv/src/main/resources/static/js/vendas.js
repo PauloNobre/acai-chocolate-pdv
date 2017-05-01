@@ -129,10 +129,14 @@ $(document).ready(function() {
 	$("#btn-confirm-modal").click(function() {
 		var url = "/venda/finalizar/" + idVenda;
 		var desconto = $("#desconto-modal").val();
+		var formaPagamento = $("#forma-pagamento").val();
 		
 		$.ajax({
 			type:"post",
-			data:{desconto: desconto},
+			data:{
+				desconto: desconto,
+				formaPagamento : formaPagamento
+				},
 			url: url,
 			beforeSend: function(request){request.setRequestHeader(header, token)},
 			dataType: "json",
@@ -174,6 +178,7 @@ $(document).ready(function() {
 		 } 
 	});
 	
+	//deletar um item da venda
 	$("#btn-delete-item").click(function() {
 		$("#modal-deletar-item").modal("toggle");
 		var indice = $("#numero-item").val();
@@ -193,6 +198,7 @@ $(document).ready(function() {
 		}
 	});
 	
+	//Cancelar a venda
 	$("#btn-confirmar-cancelar").click(function() {
 		$("#modal-cancelar").modal("toggle");
 		var url = "/venda/cancelar/" + idVenda;
@@ -206,5 +212,22 @@ $(document).ready(function() {
 				 window.location.href = data.url;
 			}
 		});
+	});
+	
+	//mostrar / ocultar campo de troco
+	$("#forma-pagamento").change(function() {
+		$("#dinheiro-troco").toggle();
+	});
+	
+	//mostrar valor do troco
+	$("#valor-recebido").change(function() {
+		var recebido = $("#valor-recebido").val();
+		var valorVenda = $("#total-pagar-modal").val();
+		
+		recebido = Number(recebido.replace(/[^0-9\.]+/g,""));
+		valorVenda = Number(valorVenda.replace(/[^0-9\.]+/g,""));
+		
+		troco = recebido - valorVenda;
+		$("#troco").val(troco.toFixed(2));
 	});
 });

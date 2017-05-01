@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -92,9 +93,10 @@ public class VendasController {
 	
 	@PostMapping("/finalizar/{id}")
 	public @ResponseBody Map<String, Object> finalizarVenda(@PathVariable("id") Venda venda,
-			@ModelAttribute("desconto") double desconto, Authentication auth){
+			@RequestParam("desconto") double desconto,
+			@RequestParam("formaPagamento") String formaPagamento, Authentication auth){
 		
-		vendaService.finalizarVenda(venda, desconto, (Funcionario) auth.getPrincipal());
+		vendaService.finalizarVenda(venda, desconto, formaPagamento, (Funcionario) auth.getPrincipal());
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("url", "/");
