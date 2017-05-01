@@ -45,7 +45,7 @@ public class CaixaController {
 		
 		caixa = caixaService.calcularEncerramento(caixa);
 		
-		ModelAndView mv = new ModelAndView("/caixa/encerrar-caixa");
+		ModelAndView mv = new ModelAndView("/caixa/caixa-encerrar");
 		mv.addObject("caixa", caixa);
 		return mv;
 	}
@@ -60,11 +60,18 @@ public class CaixaController {
 	
 	@GetMapping("/listar")
 	public ModelAndView listar(){
-		ModelAndView mv = new ModelAndView("/caixa/listar");
+		ModelAndView mv = new ModelAndView("/caixa/caixa-listar");
 		
 		List<Caixa> caixas = caixaRepository.findAll();
 		
 		mv.addObject("caixas", caixas);
+		return mv;
+	}
+	
+	@GetMapping("/detalhes/{id}")
+	public ModelAndView detalhes(@PathVariable("id") Caixa caixa) {
+		ModelAndView mv = new ModelAndView("/caixa/caixa-detalhes");
+		mv.addObject("caixa", caixa);
 		return mv;
 	}
 }
