@@ -1,6 +1,7 @@
 package ufc.quixada.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ufc.quixada.model.Caixa;
 import ufc.quixada.model.Funcionario;
+import ufc.quixada.repository.CaixaRepository;
 import ufc.quixada.service.CaixaService;
 
 @Controller
 @RequestMapping("/caixa")
 public class CaixaController {
+	
+	@Autowired
+	private CaixaRepository caixaRepository;
 	
 	@Autowired
 	private CaixaService caixaService;
@@ -51,5 +56,15 @@ public class CaixaController {
 		caixaService.encerrar(caixa);
 		
 		return new ModelAndView("redirect:/");
+	}
+	
+	@GetMapping("/listar")
+	public ModelAndView listar(){
+		ModelAndView mv = new ModelAndView("/caixa/listar");
+		
+		List<Caixa> caixas = caixaRepository.findAll();
+		
+		mv.addObject("caixas", caixas);
+		return mv;
 	}
 }

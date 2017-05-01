@@ -1,4 +1,4 @@
 $(document).ready(function() {
 	
-	$("#table-produtos").DataTable();
+	$("#table-produtos, #table-caixas").DataTable();
 });
