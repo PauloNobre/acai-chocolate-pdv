@@ -2,52 +2,49 @@ package ufc.quixada.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
-public class Venda implements Serializable{
+public class Venda implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	 @JoinTable(name="VENDA_HAS_PRODUTOS", joinColumns={@JoinColumn(name="VENDA_ID", referencedColumnName="id")},
-	 	inverseJoinColumns={@JoinColumn(name="ItemVenda_ID", referencedColumnName="id")})
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "VENDA_HAS_PRODUTOS", joinColumns = {
+	@JoinColumn(name = "VENDA_ID", referencedColumnName = "id") }, inverseJoinColumns = {
+	@JoinColumn(name = "ItemVenda_ID", referencedColumnName = "id") })
 	private List<ItemVenda> produtos;
-	
-	private Funcionario funcionario;
-	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date data;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	private int comanda;
-	
+
 	private double total;
-	
+
 	private double totalPagar;
-	
+
 	private double desconto;
+
+	@ManyToOne
+	@JoinColumn(name = "caixa.id")
+	private Caixa caixa;
 
 	public Venda() {
 		super();
@@ -68,32 +65,16 @@ public class Venda implements Serializable{
 	public void setProdutos(List<ItemVenda> produtos) {
 		this.produtos = produtos;
 	}
-	
+
 	public void addProduto(ItemVenda itemVenda) {
-		if(this.produtos == null) {
+		if (this.produtos == null) {
 			this.produtos = new ArrayList<ItemVenda>();
 		}
 		this.produtos.add(itemVenda);
 	}
-	
+
 	public void removeProduto(ItemVenda itemVenda) {
 		this.produtos.remove(itemVenda);
-	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
 	}
 
 	public Status getStatus() {
@@ -135,10 +116,18 @@ public class Venda implements Serializable{
 	public void setDesconto(double desconto) {
 		this.desconto = desconto;
 	}
-	
+
+	public Caixa getCaixa() {
+		return caixa;
+	}
+
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+	}
+
 	public void calcularTotal() {
 		double total = 0;
-		for(ItemVenda item : this.produtos) {
+		for (ItemVenda item : this.produtos) {
 			total += item.getValor();
 		}
 		this.total = total;

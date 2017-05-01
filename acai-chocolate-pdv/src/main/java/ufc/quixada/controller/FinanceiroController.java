@@ -12,14 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ufc.quixada.model.Caixa;
 import ufc.quixada.model.Despesa;
 import ufc.quixada.model.Venda;
+import ufc.quixada.service.CaixaService;
 import ufc.quixada.service.DespesaService;
 import ufc.quixada.service.VendaService;
 
 @Controller
 @RequestMapping("/financeiro")
 public class FinanceiroController {
+	
+	@Autowired
+	private CaixaService caixaService;
 	
 	@Autowired
 	private DespesaService despesaService;
@@ -33,15 +38,6 @@ public class FinanceiroController {
 		return new ModelAndView("/financeiro/financeiro-diario");
 	}
 	
-	@GetMapping("/tabela-vendas/{data}")
-	public ModelAndView tableVendas(@PathVariable("data") String data) {
-		ModelAndView mv = new ModelAndView("/financeiro/table-vendas :: vendas-list");
-		
-		List<Venda> vendas = vendaService.buscarDiaria(data);
-		mv.addObject("vendas", vendas);
-		return mv;
-	}
-	
 	@GetMapping("/tabela-despesas/{data}")
 	public ModelAndView tableDespesas(@PathVariable("data") String data) {
 		ModelAndView mv = new ModelAndView("/financeiro/table-despesas :: despesas-list");
@@ -51,13 +47,25 @@ public class FinanceiroController {
 		return mv;
 	}
 	
+	@GetMapping("/tabela-vendas/{data}")
+	public ModelAndView tableVendas(@PathVariable("data") String data) {
+		ModelAndView mv = new ModelAndView("/financeiro/table-vendas :: vendas-list");
+		
+		List<Caixa> caixas = caixaService.buscarDiaria(data);
+		List<Venda> vendas = vendaService.buscarFinalizadas(caixas);
+		
+		mv.addObject("vendas", vendas);
+		return mv;
+	}
+	
 	@GetMapping("/gerar-grafico/{data}")
 	public @ResponseBody Map<String, Object> gerarGrafico(@PathVariable("data") String data) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		List<Despesa> despesas = despesaService.buscarDiaria(data);
-		List<Venda> vendas = vendaService.buscarDiaria(data);
+		List<Caixa> caixas = caixaService.buscarDiaria(data);
+		List<Venda> vendas = vendaService.buscarFinalizadas(caixas);
 
 		map.put("despesas", despesas);
 		map.put("vendas", vendas);

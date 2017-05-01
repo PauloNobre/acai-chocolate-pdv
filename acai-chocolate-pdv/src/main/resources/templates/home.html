@@ -10,7 +10,7 @@
 
 <body>
 	<section layout:fragment="conteudo">
-		<section class="content">
+		<section class="content" th:if="${caixa}">
 			<div class="row">
 				<div class="col-md-3">
 					<div class="small-box bg-green">
@@ -21,7 +21,7 @@
 						<div class="icon">
 							<i class="fa fa-shopping-cart"></i>
 						</div>
-						<a class="small-box-footer" href="/venda/nova">
+						<a class="small-box-footer" th:href="@{|/venda/nova/${caixa.id}|}">
 							<i class="fa fa-arrow-circle-right"></i>
 						</a>
 					</div>
@@ -35,7 +35,7 @@
 						<div class="icon">
 							<i class="fa fa-money"></i>
 						</div>
-						<a class="small-box-footer" href="/despesa/nova">
+						<a class="small-box-footer" th:href="@{/despesa/nova}">
 							<i class="fa fa-arrow-circle-right"></i>
 						</a>
 					</div>
@@ -55,7 +55,71 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> <!-- caixa aberto -->
+		
+		<section class="content">
+			<div class="row">
+				<div class="col-md-3" th:if="not ${caixa}">
+					<div class="small-box bg-green">
+						<div class="inner">
+							<h3>Caixa</h3>
+							<p>abrir</p>
+						</div>
+						<div class="icon">
+							<i class="fa fa-plus-square"></i>
+						</div>
+						<a class="small-box-footer" href="#" data-toggle="modal" data-target="#abrir-caixa">
+							<i class="fa fa-arrow-circle-right"></i>
+						</a>
+					</div>
+				</div>
+				
+				<div class="col-md-3" th:if="${caixa}">
+					<div class="small-box bg-red">
+						<div class="inner">
+							<h3>Caixa</h3>
+							<p>encerrar</p>
+						</div>
+						<div class="icon">
+							<i class="fa fa-minus-square"></i>
+						</div>
+						<a class="small-box-footer" th:href="@{|/caixa/encerrar/${caixa.id}|}">
+							<i class="fa fa-arrow-circle-right"></i>
+						</a>
+					</div>
+				</div>
+			</div> <!-- row -->
+		</section> <!-- abrir e fechar caixa -->
+		
+		<div id="abrir-caixa" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-sm" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Abrir Caixa</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="form-group">
+		      		<label for="abertura-caixa" class="control-label">Valor em caixa:</label>
+		      		<div class="input-group">
+		      			<span class="input-group-addon">
+		      				<i class="fa fa-dollar"></i>
+		      			</span>
+		      			<input id="abertura-caixa" class="form-control" type="number" step="any" min="0" value="0.0"/>
+		      		</div>
+		      	</div>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button id="btn-abrir-caixa" type="button" class="btn btn-warning">Abrir</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/js/home.js}"></script>
+	</th:block>
 </body>
 </html>

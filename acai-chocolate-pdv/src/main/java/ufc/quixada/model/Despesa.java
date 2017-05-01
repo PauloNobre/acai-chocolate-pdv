@@ -27,6 +27,8 @@ public class Despesa implements Serializable{
 	private double valor;
 	
 	private String descricao;
+	
+	private Funcionario funcionario;
 
 	public Despesa() {
 		super();
@@ -62,5 +64,13 @@ public class Despesa implements Serializable{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 }
