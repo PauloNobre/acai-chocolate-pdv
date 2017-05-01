@@ -67,6 +67,7 @@ public class CaixaService {
 	}
 	
 	public void encerrar(Caixa caixa) {
+		caixa = this.calcularEncerramento(caixa);
 		caixa.setAberto(false);
 		Funcionario funcionario = caixa.getFuncionario();
 		
