@@ -34,7 +34,7 @@
 							</thead>
 							<tbody>
 								<tr th:each="caixa : ${caixas}">
-									<td th:text="${caixa.id}"></td>
+									<td><a th:text="${caixa.id}" th:href="@{|/caixa/detalhes/${caixa.id}|}"></a></td>
 									<td th:text="${#dates.format(caixa.data, 'dd/MM/yyyy')}"></td>
 									<td th:text="${caixa.funcionario.nome}"></td>
 									<td th:text="${#numbers.formatDecimal(caixa.abertura, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
