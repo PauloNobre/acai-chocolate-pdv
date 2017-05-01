@@ -25,6 +25,9 @@ public class Produto {
 	
 	@NotNull
 	private double valor;
+	
+	@NotNull
+	private double custo;
 
 	public Produto() {
 		super();
@@ -68,5 +71,13 @@ public class Produto {
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public double getCusto() {
+		return custo;
+	}
+
+	public void setCusto(double custo) {
+		this.custo = custo;
 	}
 }
