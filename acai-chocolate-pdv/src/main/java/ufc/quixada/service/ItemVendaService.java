@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ufc.quixada.model.ItemVenda;
+import ufc.quixada.model.Produto;
 import ufc.quixada.model.Venda;
 import ufc.quixada.repository.ItemVendaRepository;
 import ufc.quixada.repository.ProdutoRepository;
@@ -25,10 +26,12 @@ public class ItemVendaService {
 
 	public void salvarNovo(Integer idVenda, int codigo, double quantidade) {
 		ItemVenda itemVenda = new ItemVenda();
+		Produto produto = produtoRepository.findByCodigo(codigo);
 		
-		itemVenda.setProduto(produtoRepository.findByCodigo(codigo));
+		itemVenda.setProduto(produto);
 		itemVenda.setQuantidade(quantidade);
-		itemVenda.setValor(itemVenda.getProduto().getValor() * quantidade);
+		itemVenda.setValor(produto.getValor() * quantidade);
+		itemVenda.setCusto(produto.getCusto() * quantidade);
 		
 		Venda venda = vendaRepository.findOne(idVenda);
 		venda.addProduto(itemVenda);

@@ -20,6 +20,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Funcionario implements UserDetails {
 
@@ -42,6 +44,7 @@ public class Funcionario implements UserDetails {
 	private List<Papel> papeis;
 
 	@OneToMany(mappedBy = "funcionario", targetEntity = Caixa.class, cascade = CascadeType.PERSIST)
+	@JsonIgnore
 	private List<Caixa> caixas;
 	
 	private boolean caixaAberto;

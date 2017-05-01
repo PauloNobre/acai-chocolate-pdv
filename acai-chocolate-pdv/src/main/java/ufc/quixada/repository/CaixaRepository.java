@@ -12,7 +12,7 @@ import ufc.quixada.model.Funcionario;
 @Repository
 public interface CaixaRepository extends JpaRepository<Caixa, Integer>{
 
-	public List<Caixa> findByDataBetween(Date inicio, Date fim);
+	public List<Caixa> findByDataBetweenAndAberto(Date inicio, Date fim, boolean boll);
 	
 	public Caixa findByFuncionarioAndAberto(Funcionario funcionario, boolean bool);
 }
