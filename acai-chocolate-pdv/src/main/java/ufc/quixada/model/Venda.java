@@ -2,6 +2,7 @@ package ufc.quixada.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Venda implements Serializable {
@@ -36,15 +42,25 @@ public class Venda implements Serializable {
 
 	private int comanda;
 
+	@NotNull
 	private double total;
 
+	@NotNull
 	private double totalPagar;
 
+	@NotNull
 	private double desconto;
+	
+	@NotNull
+	private double custo;
 
 	@ManyToOne
 	@JoinColumn(name = "caixa.id")
+	@JsonIgnore
 	private Caixa caixa;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date horario;
 	
 	@Enumerated
 	private FormaPagamento formaPagamento;
@@ -120,6 +136,14 @@ public class Venda implements Serializable {
 		this.desconto = desconto;
 	}
 
+	public double getCusto() {
+		return custo;
+	}
+
+	public void setCusto(double custo) {
+		this.custo = custo;
+	}
+
 	public Caixa getCaixa() {
 		return caixa;
 	}
@@ -136,11 +160,27 @@ public class Venda implements Serializable {
 		this.formaPagamento = formaPagamento;
 	}
 
+	public Date getHorario() {
+		return horario;
+	}
+
+	public void setHorario(Date horario) {
+		this.horario = horario;
+	}
+
 	public void calcularTotal() {
 		double total = 0;
 		for (ItemVenda item : this.produtos) {
 			total += item.getValor();
 		}
 		this.total = total;
+	}
+	
+	public void calcularCusto() {
+		double total = 0;
+		for (ItemVenda item : this.produtos) {
+			total += item.getCusto();
+		}
+		this.custo = total;
 	}
 }

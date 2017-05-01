@@ -17,28 +17,23 @@ public class ItemVenda implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
-	Produto produto;
+	private Produto produto;
 	
 	@NotNull
-	double quantidade;
+	private double quantidade;
 	
 	@NotNull
-	double valor;
+	private double valor;
+	
+	@NotNull
+	private double custo;
 
 	public ItemVenda() {
 		super();
-	}
-
-	public ItemVenda(Integer id, Produto produto, double quantidade, double valor) {
-		super();
-		this.id = id;
-		this.produto = produto;
-		this.quantidade = quantidade;
-		this.valor = valor;
 	}
 
 	public Integer getId() {
@@ -71,5 +66,13 @@ public class ItemVenda implements Serializable{
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public double getCusto() {
+		return custo;
+	}
+
+	public void setCusto(double custo) {
+		this.custo = custo;
 	}
 }

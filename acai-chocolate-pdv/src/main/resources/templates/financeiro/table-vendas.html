@@ -11,19 +11,25 @@
 			<thead>
 				<tr>
 					<th>#</th>
+					<th>Nº</th>
+					<th>Data</th>
 					<th>Horário</th>
 					<th>Total</th>
 					<th>Desconto</th>
 					<th>Total Pago</th>
+					<th>Custo</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:if="${!vendas.empty}" th:each="venda, count : ${vendas}">
 					<td th:text="${count.count}"></td>
-					<td th:text="${#dates.format(venda.data, 'HH:mm')}"></td>
+					<td th:text="${venda.id}"></td>
+					<td th:text="${#dates.format(venda.horario, 'dd/MM/yyyy')}"></td>
+	 				<td th:text="${#dates.format(venda.horario, 'HH:mm')}"></td>
 					<td th:text="${#numbers.formatDecimal(venda.total, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
 					<td th:text="${#numbers.formatDecimal(venda.desconto, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
 					<td th:text="${#numbers.formatDecimal(venda.totalPagar, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
+					<td th:text="${#numbers.formatDecimal(venda.custo, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
 				</tr>
 				<tr th:if="${vendas.empty}">
 					<td rowspan="4">Não há vendas realizadas</td>

@@ -1,6 +1,7 @@
 package ufc.quixada.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +51,13 @@ public class VendaService {
 		Caixa caixa = caixaRepository.findByFuncionarioAndAberto(funcionario, true);
 		
 		venda.calcularTotal();
+		venda.calcularCusto();
 		venda.setDesconto(desconto);
 		venda.setTotalPagar(venda.getTotal() - desconto);
 		venda.setStatus(Status.FINALIZADA);
 		venda.setCaixa(caixa);
 		venda.setFormaPagamento(FormaPagamento.fromDescricao(formaPagamento));
+		venda.setHorario(new Date());
 		
 		vendaRepository.save(venda);
 	}

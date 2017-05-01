@@ -29,13 +29,15 @@ public class CaixaService {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public List<Caixa> buscarDiaria(String data) {
-		data = data.replace('-', '/');
+	public List<Caixa> buscarDiaria(String data1, String data2) {
+		data1 = data1.replace('-', '/');
+		data2 = data2.replace('-', '/');
+		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		
 		try {
-			Date inicio = new Date(formatter.parse(data).getTime());
-			Date fim = new Date(formatter.parse(data).getTime());
+			Date inicio = new Date(formatter.parse(data1).getTime());
+			Date fim = new Date(formatter.parse(data2).getTime());
 			
 			inicio.setHours(00);
 			inicio.setMinutes(00);
@@ -45,7 +47,7 @@ public class CaixaService {
 			fim.setMinutes(59);
 			fim.setSeconds(59);
 			
-			List<Caixa> caixas = caixaRepository.findByDataBetween(inicio, fim);
+			List<Caixa> caixas = caixaRepository.findByDataBetweenAndAberto(inicio, fim, false);
 			
 			return caixas;
 		} catch (ParseException e) {

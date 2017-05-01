@@ -34,37 +34,39 @@ public class FinanceiroController {
 
 	@GetMapping("/diario")
 	public ModelAndView balancoDiario() {
-		
 		return new ModelAndView("/financeiro/financeiro-diario");
 	}
 	
-	@GetMapping("/tabela-despesas/{data}")
-	public ModelAndView tableDespesas(@PathVariable("data") String data) {
+	@GetMapping("/tabela-despesas/{inicio}/{fim}")
+	public ModelAndView tableDespesas(@PathVariable("inicio") String inicio, 
+			@PathVariable("fim") String fim) {
 		ModelAndView mv = new ModelAndView("/financeiro/table-despesas :: despesas-list");
 		
-		List<Despesa> despesas = despesaService.buscarDiaria(data);
+		List<Despesa> despesas = despesaService.buscarDiaria(inicio, fim);
 		mv.addObject("despesas", despesas);
 		return mv;
 	}
 	
-	@GetMapping("/tabela-vendas/{data}")
-	public ModelAndView tableVendas(@PathVariable("data") String data) {
+	@GetMapping("/tabela-vendas/{inicio}/{fim}")
+	public ModelAndView tableVendas(@PathVariable("inicio") String inicio,
+			@PathVariable("fim") String fim) {
 		ModelAndView mv = new ModelAndView("/financeiro/table-vendas :: vendas-list");
 		
-		List<Caixa> caixas = caixaService.buscarDiaria(data);
+		List<Caixa> caixas = caixaService.buscarDiaria(inicio, fim);
 		List<Venda> vendas = vendaService.buscarFinalizadas(caixas);
 		
 		mv.addObject("vendas", vendas);
 		return mv;
 	}
 	
-	@GetMapping("/gerar-grafico/{data}")
-	public @ResponseBody Map<String, Object> gerarGrafico(@PathVariable("data") String data) {
+	@GetMapping("/gerar-grafico/{inicio}/{fim}")
+	public @ResponseBody Map<String, Object> gerarGrafico(@PathVariable("inicio") String inicio,
+			@PathVariable("fim") String fim) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		List<Despesa> despesas = despesaService.buscarDiaria(data);
-		List<Caixa> caixas = caixaService.buscarDiaria(data);
+		List<Despesa> despesas = despesaService.buscarDiaria(inicio, fim);
+		List<Caixa> caixas = caixaService.buscarDiaria(inicio, fim);
 		List<Venda> vendas = vendaService.buscarFinalizadas(caixas);
 
 		map.put("despesas", despesas);

@@ -11,6 +11,7 @@
 			<thead>
 				<tr>
 					<th>#</th>
+					<th>Data</th>
 					<th>Horário</th>
 					<th>Valor</th>
 					<th>Descrição</th>
@@ -19,6 +20,7 @@
 			<tbody>
 				<tr th:if="${!despesas.empty}" th:each="despesa, count : ${despesas}">
 					<td th:text="${count.count}"></td>
+					<td th:text="${#dates.format(despesa.data, 'dd/MM/yyyy')}"></td>
 					<td th:text="${#dates.format(despesa.data, 'HH:mm')}"></td>
 					<td th:text="${#numbers.formatDecimal(despesa.valor, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
 					<td th:text="${despesa.descricao} ? ${despesa.descricao} : '-'"></td>
